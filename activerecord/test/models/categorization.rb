@@ -17,3 +17,11 @@ class SpecialCategorization < ActiveRecord::Base
   belongs_to :author
   belongs_to :category
 end
+
+class FirstCategorization < ActiveRecord::Base
+  self.table_name = 'categorizations'
+  default_scope { where(id: 1) }
+  
+  belongs_to :author, class_name: 'FirstAuthor', foreign_key: :author_id
+  belongs_to :post, class_name: 'FirstPost', foreign_key: :post_id
+end

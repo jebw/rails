@@ -207,3 +207,11 @@ class AuthorFavorite < ActiveRecord::Base
   belongs_to :author
   belongs_to :favorite_author, :class_name => "Author"
 end
+
+class FirstAuthor < ActiveRecord::Base
+  self.table_name = 'authors'
+  default_scope { where(id: 1) }
+  
+  has_many :categorizations, class_name: 'FirstCategorization', foreign_key: :author_id
+  has_many :categorized_posts, through: :categorizations, source: :post
+end

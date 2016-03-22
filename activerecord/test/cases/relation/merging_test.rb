@@ -1,5 +1,6 @@
 require 'cases/helper'
 require 'models/author'
+require 'models/categorization'
 require 'models/comment'
 require 'models/developer'
 require 'models/computer'
@@ -110,6 +111,11 @@ class RelationMergingTest < ActiveRecord::TestCase
     assert relation.from_clause.empty?
     relation = relation.merge(Post.from("posts"))
     refute relation.from_clause.empty?
+	end
+  
+  def test_merging_using_conflicted_default_scope_for_through_association
+    author = FirstAuthor.first
+    assert_equal 'Welcome to the weblog', author.categorized_posts.merge(FirstPost.where(type: 'Post')).first.title
   end
 end
 
