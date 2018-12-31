@@ -98,7 +98,7 @@ class PostgresqlByteaTest < ActiveRecord::PostgreSQLTestCase
   end
 
   def test_write_binary
-    data = File.read(File.join(__dir__, "..", "..", "..", "assets", "example.log"))
+    data = File.read(File.join(ASSETS_ROOT, "example.log"))
     assert(data.size > 1)
     record = ByteaDataType.create(payload: data)
     assert_not_predicate record, :new_record?
